@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* Custom CSS goes here */
 .navbar {
   display: flex;

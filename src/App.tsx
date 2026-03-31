@@ -2,36 +2,119 @@ import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/r
 
 const InsideWeatherComponent = () => {
   return (
-    <div>
-      <h2>Inside Weather</h2>
-      <p>
-        Temperature: {weatherData.inside.temperatureF.toFixed(2)} °F (
-        {weatherData.inside.temperatureC.toFixed(2)} °C)
-      </p>
-      <p>Humidity: {weatherData.inside.humidity.toFixed(2)}%</p>
+    <div className="bg-gradient-to-r from-amber-500 to-pink-500 p-6">
+      <h2 className="text-3xl font-bold underline">Inside Weather</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Temperature</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.inside.temperatureF.toFixed(2)} °F (
+            {weatherData.inside.temperatureC.toFixed(2)} °C)
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Humidity</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.inside.humidity.toFixed(2)}%
+          </h2>
+        </div>
+      </div>
     </div>
   );
 };
 
 const OutsideWeatherComponent = () => {
   return (
-    <div>
-      <h2>Outside Weather</h2>
-      <p>
-        Temperature: {weatherData.outside.temperature_2m_fahrenheit} °F (
-        {weatherData.outside.temperature_2m} °C)
-      </p>
-      <p>Relative Humidity: {weatherData.outside.relative_humidity_2m}%</p>
-      <p>Apparent Temperature: {weatherData.outside.temperature_2m} C</p>
-      <p>Is Day: {weatherData.outside.is_day_yesorno} C</p>
-      <p>Weather Code: {weatherData.outside.weather_code} C</p>
-      <p>Cloud Cover: {weatherData.outside.cloud_cover}%</p>
-      <p>Precipitation: {weatherData.outside.precipitation} inches</p>
-      <p>Rain: {weatherData.outside.rain} inches</p>
-      <p>Showers: {weatherData.outside.showers} inches</p>
-      <p>Snowfall: {weatherData.outside.snowfall} inches</p>
-      <p>Wind Speed: {weatherData.outside.wind_speed_10m} miles per hour</p>
-      <p>Wind Direction: {weatherData.outside.snowfall}°</p>
+    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-6">
+      <h2 className="text-3xl font-bold underline">Outside Weather</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Temperature</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.temperature_2m_fahrenheit} °F (
+            {weatherData.outside.temperature_2m} °C)
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Humidity</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.relative_humidity_2m}%
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Feels Like</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.apparent_temperature} °C
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Daylight</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.is_day_yesorno}
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Weather Code</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.weather_code}
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Cloudy</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.cloud_cover}%
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Precipitation</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.precipitation} inches
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Rain</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.rain} inches
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Showers</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.showers} inches
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Snowfall</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.snowfall} inches
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Wind Speed</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.wind_speed_10m} miles per hour
+          </h2>
+        </div>
+
+        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Wind Direction</p>
+          <h2 className="text-2xl font-bold">
+            {weatherData.outside.snowfall}°
+          </h2>
+        </div>
+      </div>
     </div>
   );
 };
@@ -79,8 +162,10 @@ function MyApp() {
             />
             <h1 className="header-text">Environmental Monitor App</h1>
 
-            <InsideWeatherComponent />
-            <OutsideWeatherComponent />
+            <div>
+              <InsideWeatherComponent />
+              <OutsideWeatherComponent />
+            </div>
 
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
