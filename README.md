@@ -31,6 +31,12 @@ npm install
 npm run dev
 ```
 
+4. Open the site on your browser
+
+```
+http://localhost:5173/
+```
+
 # License
 
 This project is licensed under the MIT License.
