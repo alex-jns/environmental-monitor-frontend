@@ -1,3 +1,13 @@
+import weatherData from 'C:/Users/ajones88/Documents/GitHub/environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json';
+
+const WeatherComponent = () => {
+  return (
+    <div>
+      <p>Temp: {weatherData.outside.temperature_2m}</p>
+    </div>
+  )
+}
+
 function MyApp() {
   return (
     <body>
@@ -41,6 +51,7 @@ function MyApp() {
             />
             <h1 className="header-text">Environmental Monitor App</h1>
 
+            <WeatherComponent />
 
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
