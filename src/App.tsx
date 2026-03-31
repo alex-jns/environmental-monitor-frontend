@@ -1,12 +1,40 @@
-import weatherData from 'C:/Users/ajones88/Documents/GitHub/environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json';
+import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
 
-const WeatherComponent = () => {
+const InsideWeatherComponent = () => {
   return (
     <div>
-      <p>Temp: {weatherData.outside.temperature_2m}</p>
+      <h2>Inside Weather</h2>
+      <p>
+        Temperature: {weatherData.inside.temperatureF.toFixed(2)} °F (
+        {weatherData.inside.temperatureC.toFixed(2)} °C)
+      </p>
+      <p>Humidity: {weatherData.inside.humidity.toFixed(2)}%</p>
     </div>
-  )
-}
+  );
+};
+
+const OutsideWeatherComponent = () => {
+  return (
+    <div>
+      <h2>Outside Weather</h2>
+      <p>
+        Temperature: {weatherData.outside.temperature_2m_fahrenheit} °F (
+        {weatherData.outside.temperature_2m} °C)
+      </p>
+      <p>Relative Humidity: {weatherData.outside.relative_humidity_2m}%</p>
+      <p>Apparent Temperature: {weatherData.outside.temperature_2m} C</p>
+      <p>Is Day: {weatherData.outside.is_day_yesorno} C</p>
+      <p>Weather Code: {weatherData.outside.weather_code} C</p>
+      <p>Cloud Cover: {weatherData.outside.cloud_cover}%</p>
+      <p>Precipitation: {weatherData.outside.precipitation} inches</p>
+      <p>Rain: {weatherData.outside.rain} inches</p>
+      <p>Showers: {weatherData.outside.showers} inches</p>
+      <p>Snowfall: {weatherData.outside.snowfall} inches</p>
+      <p>Wind Speed: {weatherData.outside.wind_speed_10m} miles per hour</p>
+      <p>Wind Direction: {weatherData.outside.snowfall}°</p>
+    </div>
+  );
+};
 
 function MyApp() {
   return (
@@ -51,7 +79,8 @@ function MyApp() {
             />
             <h1 className="header-text">Environmental Monitor App</h1>
 
-            <WeatherComponent />
+            <InsideWeatherComponent />
+            <OutsideWeatherComponent />
 
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -71,8 +100,10 @@ function MyApp() {
             ></iframe>
             <br />
             <small>
-              <a target="_blank"
-              href="https://www.openstreetmap.org/?#map=15/36.59296/-82.19340">
+              <a
+                target="_blank"
+                href="https://www.openstreetmap.org/?#map=15/36.59296/-82.19340"
+              >
                 View Larger Map
               </a>
             </small>
