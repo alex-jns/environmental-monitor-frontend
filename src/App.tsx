@@ -1,24 +1,3 @@
-/** Interfaces are an alternative way to provide types for components */
-interface MyButtonProps {
-  /** The text to display in the button */
-  title: string;
-  /** Whether the button can be interacted with */
-  disabled: boolean;
-}
-
-/** React apps are made of components */
-function MyButton({ title, disabled }: MyButtonProps) {
-  function handleClick() {
-    alert("You clicked me!");
-  }
-
-  return (
-    <button disabled={disabled} onClick={handleClick}>
-      {title}
-    </button>
-  );
-}
-
 function MyApp() {
   return (
     <body>
@@ -61,7 +40,6 @@ function MyApp() {
               alt="A picture of clouds."
             />
             <h1 className="header-text">Environmental Monitor App</h1>
-            <p>Open from <time datetime="10:00">10:00 AM</time> to <time datetime="21:00">9:00 PM</time> every weekday.</p>
 
 
             <p>
