@@ -1,23 +1,26 @@
 import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
 
+/* Formats temperatures to be no more than 2 decimals and no trailing zeroes. */
+const formatTemp = (temp: number) => parseFloat(temp.toFixed(2)).toString();
+
 const InsideWeatherComponent = () => {
   return (
     <div className="bg-gradient-to-r from-amber-500 to-pink-500 p-6">
       <h2 className="text-3xl font-bold underline">Inside Weather</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.inside.temperatureF.toFixed(2)} °F (
-            {weatherData.inside.temperatureC.toFixed(2)} °C)
+            {formatTemp(weatherData.inside.temperatureF)} °F (
+            {formatTemp(weatherData.inside.temperatureC)} °C)
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Humidity</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.inside.humidity.toFixed(2)}%
+            {formatTemp(weatherData.inside.humidity)}%
           </h2>
         </div>
       </div>
@@ -30,85 +33,86 @@ const OutsideWeatherComponent = () => {
     <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-6">
       <h2 className="text-3xl font-bold underline">Outside Weather</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.temperature_2m_fahrenheit} °F (
-            {weatherData.outside.temperature_2m} °C)
+            {formatTemp(weatherData.outside.temperature_2m_fahrenheit)} °F (
+            {formatTemp(weatherData.outside.temperature_2m)} °C)
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Humidity</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.relative_humidity_2m}%
+            {formatTemp(weatherData.outside.relative_humidity_2m)}%
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Feels Like</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.apparent_temperature} °C
+            {formatTemp(weatherData.outside.apparent_temperature_fahrenheit)} °F
+            ({formatTemp(weatherData.outside.apparent_temperature)} °C)
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Daylight</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.is_day_yesorno}
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
-          <p className="text-sm text-white">Weather Code</p>
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Weather</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.weather_code}
+            {weatherData.outside.weather_name}
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Cloudy</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.cloud_cover}%
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Precipitation</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.precipitation} inches
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Rain</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.rain} inches
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Showers</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.showers} inches
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Snowfall</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.snowfall} inches
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Wind Speed</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.wind_speed_10m} miles per hour
           </h2>
         </div>
 
-        <div className="bg-white/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Wind Direction</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.snowfall}°
