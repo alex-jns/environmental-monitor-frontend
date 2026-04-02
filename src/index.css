@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 /* Custom CSS goes here */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(170, 59, 255, 0.5);
   color: #fff;
   padding: 1rem;
 }
@@ -21,6 +21,11 @@
   margin-right: 1rem;
 }
 
+.navbar-center .nav-links a:hover {
+  color: yellow;
+  text-decoration: underline;
+}
+
 .navbar-center .nav-links a {
   color: #fff;
   text-decoration: none;
@@ -32,7 +37,7 @@
 
 .image-container img {
   width: 100%;
-  height: 35vh;
+  height: 20vh;
   object-fit: cover;
   display: block;
 }
@@ -52,6 +57,7 @@
 }
 
 /* Default CSS starts here */
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -105,7 +111,7 @@
 }
 
 #root {
-  width: 1126px;
+  width: 100%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;

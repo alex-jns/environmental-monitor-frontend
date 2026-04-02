@@ -1,14 +1,16 @@
+/** Relative path to the report_latest.json */
 import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
 
-/* Formats temperatures to be no more than 2 decimals and no trailing zeroes. */
+/** Formats temperatures to be no more than 2 decimals and no trailing zeroes. */
 const formatTemp = (temp: number) => parseFloat(temp.toFixed(2)).toString();
 
+/** Component for the inside weather dashboard */
 const InsideWeatherComponent = () => {
   return (
-    <div className="bg-gradient-to-r from-amber-500 to-pink-500 p-6">
-      <h2 className="text-3xl font-bold underline">Inside Weather</h2>
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
+      <h2 className="text-3xl font-bold underline">Inside</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
@@ -28,11 +30,13 @@ const InsideWeatherComponent = () => {
   );
 };
 
+/** Component for the outside weather dashboard */
 const OutsideWeatherComponent = () => {
   return (
-    <div className="bg-gradient-to-r from-cyan-500 to-blue-500 p-6">
-      <h2 className="text-3xl font-bold underline">Outside Weather</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
+      <h2 className="text-3xl font-bold underline">Outside</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
         <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
@@ -123,15 +127,23 @@ const OutsideWeatherComponent = () => {
   );
 };
 
+/** Main function of the app */
 function MyApp() {
   return (
     <body>
       <div>
         {/** Navbar content starts here */}
-        <nav className="navbar">
+        <nav className="navbar bg-gradient-to-r from-slate-900 to-[#60298E]">
           <div className="navbar-left">
             {/** Left navbar is logo */}
-            <a href="/">Logo</a>
+            {/** Weather icons created by iconixar - Flaticon */}
+            <a href="/">
+              <img
+                src="cloudy.png"
+                alt="A picture of the sun partially obscured by a cloud."
+                className="w-8 h-8"
+              />
+            </a>
           </div>
 
           {/** Center navbar is links */}
@@ -164,38 +176,39 @@ function MyApp() {
               src="pexels-frostroomhead-18713933.jpg"
               alt="A picture of clouds."
             />
-            <h1 className="header-text">Environmental Monitor App</h1>
+            <h1 className="header-text pt-10">Environmental Monitor App</h1>
 
+            <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
+              <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+                <p className="text-sm text-white">Detailed Forecast</p>
+                <h2 className="text-2xl font-bold">
+                  A 20 percent chance of showers and thunderstorms. Mostly
+                  sunny, with a high near 84. South wind around 10 mph.
+                </h2>
+              </div>
+            </div>
             <div>
               <InsideWeatherComponent />
               <OutsideWeatherComponent />
             </div>
 
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
-
-            <iframe
-              width="900"
-              height="300"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-82.21352577209474%2C36.58000536706752%2C-82.17327117919923%2C36.605916527931974&amp;layer=mapnik"
-              style={{ border: "1px solid black" }}
-            ></iframe>
-            <br />
-            <small>
-              <a
-                target="_blank"
-                href="https://www.openstreetmap.org/?#map=15/36.59296/-82.19340"
-              >
-                View Larger Map
-              </a>
-            </small>
+            <div className="w-200 mx-auto">
+              <iframe
+                width="900"
+                height="300"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-82.21352577209474%2C36.58000536706752%2C-82.17327117919923%2C36.605916527931974&amp;layer=mapnik"
+                style={{ border: "1px solid black" }}
+              ></iframe>
+              <br />
+              <small>
+                <a
+                  target="_blank"
+                  href="https://www.openstreetmap.org/?#map=15/36.59296/-82.19340"
+                >
+                  View Larger Map
+                </a>
+              </small>
+            </div>
           </div>
         </main>
 
@@ -206,6 +219,14 @@ function MyApp() {
         </footer>
       </div>
     </body>
+  );
+}
+
+function TestApp() {
+  return (
+    <div>
+      <OutsideWeatherComponent />
+    </div>
   );
 }
 
