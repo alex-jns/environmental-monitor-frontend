@@ -5,12 +5,10 @@ import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/r
 const formatTemp = (temp: number) => parseFloat(temp.toFixed(2)).toString();
 
 /** Component for the inside weather dashboard */
-const InsideWeatherComponent = () => {
+const InsideWeatherDashboard = () => {
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
-      <h2 className="text-3xl font-bold underline">Inside</h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
@@ -30,8 +28,22 @@ const InsideWeatherComponent = () => {
   );
 };
 
+/** Component for the inside weather summary */
+const InsideWeatherSummary = () => {
+  return (
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
+      <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <p className="text-sm text-white">Inside Summary</p>
+        <h2 className="text-2xl font-bold">
+          {weatherData.inside.inside_summary}
+        </h2>
+      </div>
+    </div>
+  );
+};
+
 /** Component for the outside weather dashboard */
-const OutsideWeatherComponent = () => {
+const OutsideWeatherDashboard = () => {
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
       <h2 className="text-3xl font-bold underline">Outside</h2>
@@ -178,18 +190,13 @@ function MyApp() {
             />
             <h1 className="header-text pt-10">Environmental Monitor App</h1>
 
-            <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
-              <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
-                <p className="text-sm text-white">Detailed Forecast</p>
-                <h2 className="text-2xl font-bold">
-                  A 20 percent chance of showers and thunderstorms. Mostly
-                  sunny, with a high near 84. South wind around 10 mph.
-                </h2>
-              </div>
-            </div>
             <div>
-              <InsideWeatherComponent />
-              <OutsideWeatherComponent />
+              <InsideWeatherSummary />
+            </div>
+
+            <div>
+              <InsideWeatherDashboard />
+              <OutsideWeatherDashboard />
             </div>
 
             <div className="w-200 mx-auto">
