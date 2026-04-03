@@ -9,7 +9,7 @@ const InsideWeatherDashboard = () => {
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
             {formatTemp(weatherData.inside.temperatureF)} °F (
@@ -17,7 +17,7 @@ const InsideWeatherDashboard = () => {
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Humidity</p>
           <h2 className="text-2xl font-bold">
             {formatTemp(weatherData.inside.humidity)}%
@@ -32,7 +32,7 @@ const InsideWeatherDashboard = () => {
 const InsideWeatherSummary = () => {
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
-      <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+      <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
         <p className="text-sm text-white">Inside Summary</p>
         <h2 className="text-2xl font-bold">
           {weatherData.inside.inside_summary}
@@ -49,7 +49,7 @@ const OutsideWeatherDashboard = () => {
       <h2 className="text-3xl font-bold underline">Outside</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Temperature</p>
           <h2 className="text-2xl font-bold">
             {formatTemp(weatherData.outside.temperature_2m_fahrenheit)} °F (
@@ -57,14 +57,14 @@ const OutsideWeatherDashboard = () => {
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Humidity</p>
           <h2 className="text-2xl font-bold">
             {formatTemp(weatherData.outside.relative_humidity_2m)}%
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Feels Like</p>
           <h2 className="text-2xl font-bold">
             {formatTemp(weatherData.outside.apparent_temperature_fahrenheit)} °F
@@ -72,66 +72,83 @@ const OutsideWeatherDashboard = () => {
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Daylight</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.is_day_yesorno}
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Weather</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.weather_name}
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Cloudy</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.cloud_cover}%
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Precipitation</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.precipitation} inches
+            {weatherData.outside.precipitation === 0 ? (
+              <p>None</p>
+            ) : (
+              <p>{weatherData.outside.precipitation} inches</p>
+            )}
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Rain</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.rain} inches
+            {weatherData.outside.rain === 0 ? (
+              <p>None</p>
+            ) : (
+              <p>{weatherData.outside.rain} inches</p>
+            )}
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Showers</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.showers} inches
+            {weatherData.outside.showers === 0 ? (
+              <p>None</p>
+            ) : (
+              <p>{weatherData.outside.showers} inches</p>
+            )}
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Snowfall</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.snowfall} inches
+            {weatherData.outside.snowfall === 0 ? (
+              <p>None</p>
+            ) : (
+              <p>{weatherData.outside.snowfall} inches</p>
+            )}
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Wind Speed</p>
           <h2 className="text-2xl font-bold">
             {weatherData.outside.wind_speed_10m} miles per hour
           </h2>
         </div>
 
-        <div className="bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
           <p className="text-sm text-white">Wind Direction</p>
           <h2 className="text-2xl font-bold">
-            {weatherData.outside.snowfall}°
+            {weatherData.outside.wind_direction_10m_compass} (
+            {weatherData.outside.wind_direction_10m}°)
           </h2>
         </div>
       </div>

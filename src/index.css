@@ -2,6 +2,11 @@
 
 /* Custom CSS goes here */
 
+.weather-card:hover {
+  background-color: #3b155a;
+  transition: background-color 0.3s;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
