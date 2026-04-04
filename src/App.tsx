@@ -39,7 +39,7 @@ const NavBarLeft = () => {
 const NavBarCenter = () => {
   return (
     <div className="navbar-center">
-      <ul className="nav-links">
+      <ul className="nav-links gap-2">
         <li>
           <a href="/">Weather</a>
         </li>
@@ -49,7 +49,7 @@ const NavBarCenter = () => {
         </li>
 
         <li>
-          <a href="/contact">Contact</a>
+          <a href="/about">About</a>
         </li>
       </ul>
     </div>
@@ -94,7 +94,7 @@ const WeatherCard = ({ title, content }: WeatherCardProps) => {
 /** Component for the inside weather summary. */
 const InsideWeatherSummary = () => {
   return (
-    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-6 px-6">
       <WeatherCard
         title="Inside Summary"
         content={weatherData.inside.inside_summary}
@@ -110,8 +110,8 @@ const InsideWeatherDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <WeatherCard
           title="Temperature"
-          content={`${formatTemp(weatherData.inside.temperatureF)} °F (
-            ${formatTemp(weatherData.inside.temperatureC)} °C)`}
+          content={`${formatTemp(weatherData.inside.temperatureF)} °F
+          (${formatTemp(weatherData.inside.temperatureC)} °C)`}
         />
 
         <WeatherCard
