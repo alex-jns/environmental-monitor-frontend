@@ -1,4 +1,8 @@
-/** Relative path to the report_latest.json */
+// Allows for the page to update by changing components instead of loading new page
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+
+// Relative path to the report_latest.json
 import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
 
 /** Formats temperatures to be no more than 2 decimals and no trailing zeroes. */
@@ -37,7 +41,7 @@ const NavBarCenter = () => {
     <div className="navbar-center">
       <ul className="nav-links">
         <li>
-          <a href="/weather">Weather</a>
+          <a href="/">Weather</a>
         </li>
 
         <li>
@@ -247,29 +251,62 @@ const BottomBar = () => {
   );
 };
 
+/** Represents the weather page. */
+const Weather = () => {
+  return (
+    <div>
+      <Banner />
+      <InsideWeatherSummary />
+      <InsideWeatherDashboard />
+      <OutsideWeatherDashboard />
+      <OpenStreetMap />
+    </div>
+  );
+};
+
+/** Represents the report page. */
+const Report = () => {
+  return (
+    <div>
+      <Banner />
+    </div>
+  );
+};
+
+/** Represents the about page. */
+const About = () => {
+  return (
+    <div>
+      <Banner />
+    </div>
+  );
+};
+
 /** Main function of the app. */
 function MyApp() {
   return (
-    <div>
-      {/** Header starts here */}
-      <header>
-        <NavBar />
-      </header>
+    <BrowserRouter>
+      <div>
+        {/** Header starts here */}
+        <header>
+          <NavBar />
+        </header>
 
-      {/** Main starts here */}
-      <main>
-        <Banner />
-        <InsideWeatherSummary />
-        <InsideWeatherDashboard />
-        <OutsideWeatherDashboard />
-        <OpenStreetMap />
-      </main>
+        {/** Main starts here */}
+        <main>
+          <Routes>
+            <Route path="/" element={<Weather />} />
+            <Route path="/report" element={<Report />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
 
-      {/** Footer starts here */}
-      <footer>
-        <BottomBar />
-      </footer>
-    </div>
+        {/** Footer starts here */}
+        <footer>
+          <BottomBar />
+        </footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
