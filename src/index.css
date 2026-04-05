@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 /* Custom CSS goes here */
+.navbar-button:hover {
+  background-color: #60278f;
+  transition: background-color 0.3s;
+}
+
 .weather-card:hover {
-  background-color: #3b155a;
+  background-color: #32114d;
   transition: background-color 0.3s;
 }
 
@@ -23,11 +28,6 @@
 
 .navbar-center .nav-links li {
   margin-right: 1rem;
-}
-
-.navbar-center .nav-links a:hover {
-  color: yellow;
-  text-decoration: underline;
 }
 
 .navbar-center .nav-links a {

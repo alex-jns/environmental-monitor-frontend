@@ -35,21 +35,38 @@ const NavBarLeft = () => {
   );
 };
 
+/** Specifies that the navbar buttons must take two strings: a name and a link (href). */
+interface NavBarButtonProps {
+  name: string;
+  link: string;
+}
+
+/** Component for the buttons on the navbar. */
+const NavBarButton = ({ name, link }: NavBarButtonProps) => {
+  return (
+    <div>
+      <button className="navbar-button cursor-pointer w-40 bg-black/20 backdrop-blur-sm p-2 rounded-lg shadow">
+        <a href={link}>{name}</a>
+      </button>
+    </div>
+  );
+};
+
 /** Center navbar is links. */
 const NavBarCenter = () => {
   return (
     <div className="navbar-center">
       <ul className="nav-links gap-2">
         <li>
-          <a href="/">Weather</a>
+          <NavBarButton name="Weather" link="/" />
         </li>
 
         <li>
-          <a href="/report">Report</a>
+          <NavBarButton name="Report" link="/report" />
         </li>
 
         <li>
-          <a href="/about">About</a>
+          <NavBarButton name="About" link="/about" />
         </li>
       </ul>
     </div>
@@ -295,6 +312,7 @@ function MyApp() {
         {/** Main starts here */}
         <main>
           <Routes>
+            {/** Updates the page by changing components */}
             <Route path="/" element={<Weather />} />
             <Route path="/report" element={<Report />} />
             <Route path="/about" element={<About />} />
