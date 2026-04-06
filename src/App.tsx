@@ -158,14 +158,14 @@ const OutsideWeatherDashboard = () => {
       {/** Defines how the grid is structured for this component */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
         <WeatherCard
-          title="Temperature"
-          content={`${formatTemp(weatherData.outside.temperature_2m_fahrenheit)} °F
-          (${formatTemp(weatherData.outside.temperature_2m)} °C)`}
+          title="Weather"
+          content={weatherData.outside.weather_name}
         />
 
         <WeatherCard
-          title="Humidity"
-          content={`${formatTemp(weatherData.outside.relative_humidity_2m)}%`}
+          title="Temperature"
+          content={`${formatTemp(weatherData.outside.temperature_2m_fahrenheit)} °F
+          (${formatTemp(weatherData.outside.temperature_2m)} °C)`}
         />
 
         <WeatherCard
@@ -175,18 +175,30 @@ const OutsideWeatherDashboard = () => {
         />
 
         <WeatherCard
+          title="Humidity"
+          content={`${formatTemp(weatherData.outside.relative_humidity_2m)}%`}
+        />
+
+        <WeatherCard
           title="Daylight"
           content={weatherData.outside.is_day_yesorno}
         />
 
         <WeatherCard
-          title="Weather"
-          content={weatherData.outside.weather_name}
+          title="Cloudy"
+          content={`${weatherData.outside.cloud_cover}%`}
         />
 
         <WeatherCard
-          title="Cloudy"
-          content={`${weatherData.outside.cloud_cover}%`}
+          title="Wind Speed"
+          content={`${weatherData.outside.wind_speed_10m} miles per hour`}
+        />
+
+        {/** Shows where the wind is coming from, not where it's going */}
+        <WeatherCard
+          title="Wind Direction"
+          content={`${weatherData.outside.wind_direction_10m_compass}
+            (${weatherData.outside.wind_direction_10m}°)`}
         />
 
         {/** Conditional in case there is no precipitation */}
@@ -225,18 +237,6 @@ const OutsideWeatherDashboard = () => {
               ? "None"
               : `{weatherData.outside.snowfall} inches`
           }
-        />
-
-        <WeatherCard
-          title="Wind Speed"
-          content={`${weatherData.outside.wind_speed_10m} miles per hour`}
-        />
-
-        {/** Shows where the wind is coming from, not where it's going */}
-        <WeatherCard
-          title="Wind Direction"
-          content={`${weatherData.outside.wind_direction_10m_compass}
-            (${weatherData.outside.wind_direction_10m}°)`}
         />
       </div>
     </div>
