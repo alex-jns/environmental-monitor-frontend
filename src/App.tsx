@@ -85,8 +85,7 @@ const NavBarRight = () => {
 /** Shows a picture of clouds and the main site title. */
 const Banner = () => {
   return (
-    <div className="image-container">
-      <img src="pexels-frostroomhead-18713933.jpg" alt="A picture of clouds." />
+    <div className="flex items-center justify-center h-40 banner-bg">
       <h1 className="header-text pt-10">Environmental Monitor App</h1>
     </div>
   );
@@ -111,7 +110,7 @@ const WeatherCard = ({ title, content }: WeatherCardProps) => {
 /** Component for the inside weather summary. */
 const InsideWeatherSummary = () => {
   return (
-    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-6 px-6">
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-8 px-6">
       <WeatherCard
         title="Inside Summary"
         content={weatherData.inside.inside_summary}
@@ -140,15 +139,24 @@ const InsideWeatherDashboard = () => {
   );
 };
 
+/** Component for the inside weather summary. */
+const OutsideWeatherSummary = () => {
+  return (
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
+      <WeatherCard
+        title="Outside Summary"
+        content="Placeholder for the outside summary! Replace this when you make one!"
+      />
+    </div>
+  );
+};
+
 /** Component for the outside weather dashboard. */
 const OutsideWeatherDashboard = () => {
   return (
-    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
-      {/** Header for the outside weather dashboard */}
-      <h2 className="text-3xl font-bold underline">Outside</h2>
-
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 pb-6 px-6">
       {/** Defines how the grid is structured for this component */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
         <WeatherCard
           title="Temperature"
           content={`${formatTemp(weatherData.outside.temperature_2m_fahrenheit)} °F
@@ -238,22 +246,23 @@ const OutsideWeatherDashboard = () => {
 /** Taken from the OpenStreetMap site to embed on the site. */
 const OpenStreetMap = () => {
   return (
-    <div className="w-200 mx-auto">
-      <iframe
-        width="900"
-        height="300"
-        src="https://www.openstreetmap.org/export/embed.html?bbox=-82.21352577209474%2C36.58000536706752%2C-82.17327117919923%2C36.605916527931974&amp;layer=mapnik"
-        style={{ border: "1px solid black" }}
-      ></iframe>
-      <br />
-      <small>
+    <div className="w-200 pt-12 mx-auto">
+      <div>
+        <iframe
+          width="900"
+          height="300"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-82.21352577209474%2C36.58000536706752%2C-82.17327117919923%2C36.605916527931974&amp;layer=mapnik"
+          style={{ border: "1px solid black" }}
+        />
+      </div>
+      <div className="pt-4">
         <a
           target="_blank"
           href="https://www.openstreetmap.org/?#map=15/36.59296/-82.19340"
         >
           View Larger Map
         </a>
-      </small>
+      </div>
     </div>
   );
 };
@@ -262,8 +271,8 @@ const OpenStreetMap = () => {
 const BottomBar = () => {
   return (
     <div>
-      <hr />
-      <div>Copyright 2026</div>
+      <div className="w-3/4 mx-auto h-px bg-gray-400 my-6"></div>
+      <div className="pb-6">Copyright 2026</div>
     </div>
   );
 };
@@ -272,9 +281,9 @@ const BottomBar = () => {
 const Weather = () => {
   return (
     <div>
-      <Banner />
       <InsideWeatherSummary />
       <InsideWeatherDashboard />
+      <OutsideWeatherSummary />
       <OutsideWeatherDashboard />
       <OpenStreetMap />
     </div>
@@ -283,20 +292,12 @@ const Weather = () => {
 
 /** Represents the report page. */
 const Report = () => {
-  return (
-    <div>
-      <Banner />
-    </div>
-  );
+  return <div></div>;
 };
 
 /** Represents the about page. */
 const About = () => {
-  return (
-    <div>
-      <Banner />
-    </div>
-  );
+  return <div></div>;
 };
 
 /** Main function of the app. */
@@ -311,6 +312,7 @@ function MyApp() {
 
         {/** Main starts here */}
         <main>
+          <Banner />
           <Routes>
             {/** Updates the page by changing components */}
             <Route path="/" element={<Weather />} />
