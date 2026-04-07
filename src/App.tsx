@@ -1,10 +1,9 @@
 // Allows for the page to update by changing components instead of loading new page
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Styling and functionality for Clerk
 import "./App.css";
-import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/react";
+import { Show, SignInButton, UserButton, useUser } from "@clerk/react";
 
 // Relative path to the report_latest.json
 import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
@@ -77,7 +76,7 @@ const NavBarCenter = () => {
   );
 };
 
-/** Right navbar is icons. */
+/** Right navbar is login. */
 const NavBarRight = () => {
   return (
     <div className="navbar-right flex gap-4">
@@ -88,11 +87,6 @@ const NavBarRight = () => {
             Login
           </button>
         </SignInButton>
-        <SignUpButton>
-          <button className="weather-card cursor-pointer bg-black/20 backdrop-blur-sm p-2 w-20 rounded-lg shadow">
-            Register
-          </button>
-        </SignUpButton>
       </Show>
 
       {/** Signed in */}
@@ -370,10 +364,41 @@ const BottomBar = () => {
   );
 };
 
+/** Welcome message that change based on if user is logged in */
+const WelcomeMessage = () => {
+  const { user } = useUser();
+  return (
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-8 px-6">
+      {/** Welcome new user and inform them of login */}
+      <Show when="signed-out">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">
+            Welcome to the Environmental Monitor App!
+          </p>
+          <h2 className="text-2xl font-bold">
+            Login or register for a personalized weather forecast.
+          </h2>
+        </div>
+      </Show>
+
+      {/** Welcome user back if they are logged in */}
+      <Show when="signed-in">
+        <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow">
+          <p className="text-sm text-white">Welcome back, {user?.firstName}</p>
+          <h2 className="text-2xl font-bold">
+            Here's your weather forecast for Bristol, TN
+          </h2>
+        </div>
+      </Show>
+    </div>
+  );
+};
+
 /** Represents the weather page. */
 const Weather = () => {
   return (
     <div>
+      <WelcomeMessage />
       <InsideWeatherSummary />
       <InsideWeatherDashboard />
       <OutsideWeatherSummary />
