@@ -26,7 +26,7 @@ const NavBarLeft = () => {
       {/** Weather icons created by iconixar - Flaticon */}
       <a href="/">
         <img
-          src="cloudy.png"
+          src="/favicon.png"
           alt="A picture of the sun partially obscured by a cloud."
           className="w-8 h-8"
         />
@@ -77,7 +77,14 @@ const NavBarCenter = () => {
 const NavBarRight = () => {
   return (
     <div className="navbar-right">
-      <a href="/">Icon</a>
+      {/** Weather icons created by iconixar - Flaticon */}
+      <a href="/">
+        <img
+          src="/crescent-moon.png"
+          alt="Crescent moon."
+          className="w-8 h-8"
+        />
+      </a>
     </div>
   );
 };
@@ -86,7 +93,7 @@ const NavBarRight = () => {
 const Banner = () => {
   return (
     <div className="flex items-center justify-center h-40 banner-bg">
-      <h1 className="header-text pt-10">Environmental Monitor App</h1>
+      <h1 className="header-text pt-12">Environmental Monitor App</h1>
     </div>
   );
 };
@@ -151,16 +158,88 @@ const OutsideWeatherSummary = () => {
   );
 };
 
+/** Decides which icon to show based on weather code. */
+const WeatherIconDecider = () => {
+  switch (weatherData.outside.weather_name) {
+    // Clear skies
+    case "Clear sky":
+    case "Mainly clear":
+      return <img src="/sun.png" alt="Clear sky" className="w-8 h-8" />;
+
+    // Parly cloudy
+    case "Partly cloudy":
+      return (
+        <img src="/partly-cloudy.png" alt="Partly cloudy" className="w-8 h-8" />
+      );
+
+    // Cloudy, overcast, foggy
+    case "Overcast":
+    case "Fog":
+    case "Depositing rime fog":
+      return (
+        <img
+          src="/cloudy.png"
+          alt="Cloudy, overcast, foggy"
+          className="w-8 h-8"
+        />
+      );
+
+    // Drizzle
+    case "Light drizzle":
+    case "Moderate drizzle":
+    case "Dense drizzle":
+    case "Light freezing drizzle":
+    case "Dense freezing drizzle":
+      return <img src="/drizzle.png" alt="Drizzle" className="w-8 h-8" />;
+
+    // Rain
+    case "Slight rain":
+    case "Moderate rain":
+    case "Heavy rain":
+    case "Light freezing rain":
+    case "Heavy freezing rain":
+    case "Slight rain showers":
+    case "Moderate rain showers":
+    case "Violent rain showers":
+      return <img src="/rain.png" alt="Rain" className="w-8 h-8" />;
+
+    // Thunderstorms
+    case "Thunderstorm":
+    case "Thunderstorm with slight hail":
+    case "Thunderstorm with heavy hail":
+      return <img src="/storm.png" alt="Thunderstorms" className="w-8 h-8" />;
+
+    // Snow
+    case "Slight snow fall":
+    case "Moderate snow fall":
+    case "Heavy snow fall":
+    case "Snow grains":
+    case "Slight snow showers":
+    case "Heavy snow showers":
+      return <img src="/snow.png" alt="Snow" className="w-8 h-8" />;
+
+    default:
+      return <p>No match</p>;
+  }
+};
+
+/** Weather card but only takes one in-line prop: content (string). */
+const WeatherCardWithIcon = ({ content }: { content: string }) => {
+  return (
+    <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow flex items-center justify-center gap-2">
+      <h2 className="text-2xl font-bold">{content}</h2>
+      <WeatherIconDecider />
+    </div>
+  );
+};
+
 /** Component for the outside weather dashboard. */
 const OutsideWeatherDashboard = () => {
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 pb-6 px-6">
       {/** Defines how the grid is structured for this component */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-        <WeatherCard
-          title="Weather"
-          content={weatherData.outside.weather_name}
-        />
+        <WeatherCardWithIcon content={weatherData.outside.weather_name} />
 
         <WeatherCard
           title="Temperature"

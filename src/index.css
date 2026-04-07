@@ -41,7 +41,7 @@
 }
 
 .banner-bg {
-  background-image: url("banner-bg-sunset.jpg");
+  background-image: url("/banner-bg-sunset.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
