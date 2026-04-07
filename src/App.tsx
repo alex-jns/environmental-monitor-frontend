@@ -2,6 +2,10 @@
 import { BrowserRouter } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 
+// Styling and functionality for Clerk
+import "./App.css";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/react";
+
 // Relative path to the report_latest.json
 import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
 
@@ -55,7 +59,7 @@ const NavBarButton = ({ name, link }: NavBarButtonProps) => {
 /** Center navbar is links. */
 const NavBarCenter = () => {
   return (
-    <div className="navbar-center">
+    <div className="navbar-center absolute left-1/2 -translate-x-1/2">
       <ul className="nav-links gap-2">
         <li>
           <NavBarButton name="Weather" link="/" />
@@ -76,15 +80,25 @@ const NavBarCenter = () => {
 /** Right navbar is icons. */
 const NavBarRight = () => {
   return (
-    <div className="navbar-right">
-      {/** Weather icons created by iconixar - Flaticon */}
-      <a href="/">
-        <img
-          src="/crescent-moon.png"
-          alt="Crescent moon."
-          className="w-8 h-8"
-        />
-      </a>
+    <div className="navbar-right flex gap-4">
+      {/** Signed out */}
+      <Show when="signed-out">
+        <SignInButton>
+          <button className="weather-card cursor-pointer bg-black/20 backdrop-blur-sm p-2 w-20 rounded-lg shadow">
+            Login
+          </button>
+        </SignInButton>
+        <SignUpButton>
+          <button className="weather-card cursor-pointer bg-black/20 backdrop-blur-sm p-2 w-20 rounded-lg shadow">
+            Register
+          </button>
+        </SignUpButton>
+      </Show>
+
+      {/** Signed in */}
+      <Show when="signed-in">
+        <UserButton />
+      </Show>
     </div>
   );
 };
