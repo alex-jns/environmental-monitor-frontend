@@ -160,7 +160,7 @@ const OutsideWeatherSummary = () => {
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
       <WeatherCard
         title="Outside Summary"
-        content="Placeholder for the outside summary! Replace this when you make one!"
+        content={weatherData.outside.outside_summary}
       />
     </div>
   );
