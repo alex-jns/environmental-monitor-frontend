@@ -7,6 +7,7 @@ import { Show, SignInButton, UserButton, useUser } from "@clerk/react";
 
 // Relative path to the report_latest.json
 import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
+import reportData from "../../environmental-monitor-backend/bin/Debug/net10.0/monthly/latest_monthly.json";
 
 /** Formats temperatures to be no more than 2 decimals and no trailing zeroes. */
 const formatTemp = (temp: number) => parseFloat(temp.toFixed(2)).toString();
@@ -48,9 +49,11 @@ interface NavBarButtonProps {
 const NavBarButton = ({ name, link }: NavBarButtonProps) => {
   return (
     <div>
-      <button className="navbar-button cursor-pointer w-40 bg-black/20 backdrop-blur-sm p-2 rounded-lg shadow">
-        <a href={link}>{name}</a>
-      </button>
+      <a href={link}>
+        <button className="navbar-button cursor-pointer w-40 bg-black/20 backdrop-blur-sm p-2 rounded-lg shadow">
+          {name}
+        </button>
+      </a>
     </div>
   );
 };
@@ -408,9 +411,137 @@ const Weather = () => {
   );
 };
 
+/** Title card for the report page. */
+const ReportTitle = () => {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mt-6">
+      <WeatherCard
+        title="Monthly Report"
+        content={`Showing report for ${reportData.starting_date}
+        to ${reportData.ending_date} with ${reportData.sample_count} samples.`}
+      />
+    </div>
+  );
+};
+
+/** Dashboard for the inside weather report. */
+const ReportInside = () => {
+  return (
+    <div>
+      <h2 className="pt-6">Inside</h2>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+        <WeatherCard
+          title="Starting Temperature"
+          content={`${formatTemp(reportData.inside.starting_temperatureF)} °F
+          (${formatTemp(reportData.inside.starting_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Starting Humidity"
+          content={`${formatTemp(reportData.inside.starting_humidity)}%`}
+        />
+
+        <WeatherCard
+          title="Ending Temperature"
+          content={`${formatTemp(reportData.inside.ending_temperatureF)} °F
+          (${formatTemp(reportData.inside.ending_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Ending Humidity"
+          content={`${formatTemp(reportData.inside.ending_humidity)}%`}
+        />
+
+        <WeatherCard
+          title="Temperature Delta"
+          content={`${formatTemp(reportData.inside.delta_temperatureF)} °F
+          (${formatTemp(reportData.inside.delta_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Humidity Delta"
+          content={`${formatTemp(reportData.inside.delta_humidity)}%`}
+        />
+
+        <WeatherCard
+          title="Average Temperature"
+          content={`${formatTemp(reportData.inside.average_temperatureF)} °F
+          (${formatTemp(reportData.inside.average_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Average Humidity"
+          content={`${formatTemp(reportData.inside.average_humidity)}%`}
+        />
+      </div>
+    </div>
+  );
+};
+
+/** Dashboard for the outside weather report. */
+const ReportOutside = () => {
+  return (
+    <div>
+      <h2 className="pt-6">Outside</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+        <WeatherCard
+          title="Starting Temperature"
+          content={`${formatTemp(reportData.outside.starting_temperatureF)} °F
+          (${formatTemp(reportData.outside.starting_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Starting Humidity"
+          content={`${formatTemp(reportData.outside.starting_humidity)}%`}
+        />
+
+        <WeatherCard
+          title="Ending Temperature"
+          content={`${formatTemp(reportData.outside.ending_temperatureF)} °F
+          (${formatTemp(reportData.outside.ending_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Ending Humidity"
+          content={`${formatTemp(reportData.outside.ending_humidity)}%`}
+        />
+
+        <WeatherCard
+          title="Temperature Delta"
+          content={`${formatTemp(reportData.outside.delta_temperatureF)} °F
+          (${formatTemp(reportData.outside.delta_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Humidity Delta"
+          content={`${formatTemp(reportData.outside.delta_humidity)}%`}
+        />
+
+        <WeatherCard
+          title="Average Temperature"
+          content={`${formatTemp(reportData.outside.average_temperatureF)} °F
+          (${formatTemp(reportData.outside.average_temperatureC)} °C)`}
+        />
+
+        <WeatherCard
+          title="Average Humidity"
+          content={`${formatTemp(reportData.outside.average_humidity)}%`}
+        />
+      </div>
+    </div>
+  );
+};
+
 /** Represents the report page. */
 const Report = () => {
-  return <div></div>;
+  return (
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 pb-6 px-6">
+      <ReportTitle />
+      <ReportInside />
+      <ReportOutside />
+    </div>
+  );
 };
 
 /** Represents the about page. */
