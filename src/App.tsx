@@ -1,6 +1,8 @@
 // Allows for the page to update by changing components instead of loading new page
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { useApi } from "./ApiContext";
+
 // Styling and functionality for Clerk
 import "./App.css";
 import { Show, SignInButton, UserButton, useUser } from "@clerk/react";
@@ -159,14 +161,28 @@ const InsideWeatherDashboard = () => {
 
 /** Component for the inside weather summary. */
 const OutsideWeatherSummary = () => {
-  return (
-    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
-      <WeatherCard
-        title="Outside Summary"
-        content={weatherData.outside.outside_summary}
-      />
-    </div>
-  );
+  const newWeatherData = useApi();
+
+  // Check if null
+  if (newWeatherData) {
+    return (
+      <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
+        <WeatherCard
+          title="Outside Summary"
+          content={newWeatherData.outsideSummary}
+        />
+      </div>
+    );
+  } else {
+    return (
+      <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
+        <WeatherCard
+          title="Outside Summary"
+          content="Error retrieving outside summary"
+        />
+      </div>
+    );
+  }
 };
 
 /** Decides which icon to show based on weather code. */
@@ -562,6 +578,7 @@ function MyApp() {
         {/** Main starts here */}
         <main>
           <Banner />
+
           <Routes>
             {/** Updates the page by changing components */}
             <Route path="/" element={<Weather />} />
