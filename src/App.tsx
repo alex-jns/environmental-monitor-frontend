@@ -1,15 +1,13 @@
 // Allows for the page to update by changing components instead of loading new page
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Calls the backend API
 import { useApi } from "./ApiContext";
+import { useState } from "react";
 
 // Styling and functionality for Clerk
 import "./App.css";
 import { Show, SignInButton, UserButton, useUser } from "@clerk/react";
-
-// Relative path to the report_latest.json
-import weatherData from "../../environmental-monitor-backend/bin/Debug/net10.0/reports/report_latest.json";
-import reportData from "../../environmental-monitor-backend/bin/Debug/net10.0/monthly/latest_monthly.json";
 
 /** Formats temperatures to be no more than 2 decimals and no trailing zeroes. */
 const formatTemp = (temp: number) => parseFloat(temp.toFixed(2)).toString();
@@ -113,8 +111,8 @@ const Banner = () => {
 
 /** Specifies that the weather card component must take two strings. */
 interface WeatherCardProps {
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
 }
 
 /** Defines the weather card component which has two props: a title and content. */
@@ -129,11 +127,13 @@ const WeatherCard = ({ title, content }: WeatherCardProps) => {
 
 /** Component for the inside weather summary. */
 const InsideWeatherSummary = () => {
+  const newWeatherData = useApi();
+
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-8 px-6">
       <WeatherCard
         title="Inside Summary"
-        content={weatherData.inside.inside_summary}
+        content={newWeatherData?.insideSummary}
       />
     </div>
   );
@@ -141,18 +141,20 @@ const InsideWeatherSummary = () => {
 
 /** Component for the inside weather dashboard. */
 const InsideWeatherDashboard = () => {
+  const newWeatherData = useApi();
+
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <WeatherCard
           title="Temperature"
-          content={`${formatTemp(weatherData.inside.temperatureF)} °F
-          (${formatTemp(weatherData.inside.temperatureC)} °C)`}
+          content={`${formatTemp(newWeatherData?.message.temperatureF ?? 0)} °F
+          (${formatTemp(newWeatherData?.message.temperatureC ?? 0)} °C)`}
         />
 
         <WeatherCard
           title="Humidity"
-          content={`${formatTemp(weatherData.inside.humidity)}%`}
+          content={`${formatTemp(newWeatherData?.message.humidity ?? 0)}%`}
         />
       </div>
     </div>
@@ -163,31 +165,21 @@ const InsideWeatherDashboard = () => {
 const OutsideWeatherSummary = () => {
   const newWeatherData = useApi();
 
-  // Check if null
-  if (newWeatherData) {
-    return (
-      <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
-        <WeatherCard
-          title="Outside Summary"
-          content={newWeatherData.outsideSummary}
-        />
-      </div>
-    );
-  } else {
-    return (
-      <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
-        <WeatherCard
-          title="Outside Summary"
-          content="Error retrieving outside summary"
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 px-6">
+      <WeatherCard
+        title="Outside Summary"
+        content={newWeatherData?.outsideSummary}
+      />
+    </div>
+  );
 };
 
 /** Decides which icon to show based on weather code. */
 const WeatherIconDecider = () => {
-  switch (weatherData.outside.weather_name) {
+  const newWeatherData = useApi();
+
+  switch (newWeatherData?.apiWeather.current.weather_name) {
     // Clear skies
     case "Clear sky":
     case "Mainly clear":
@@ -251,7 +243,7 @@ const WeatherIconDecider = () => {
 };
 
 /** Weather card but only takes one in-line prop: content (string). */
-const WeatherCardWithIcon = ({ content }: { content: string }) => {
+const WeatherCardWithIcon = ({ content }: { content?: string }) => {
   return (
     <div className="weather-card bg-black/20 backdrop-blur-sm p-4 rounded-lg shadow flex items-center justify-center gap-2">
       <h2 className="text-2xl font-bold">{content}</h2>
@@ -262,49 +254,53 @@ const WeatherCardWithIcon = ({ content }: { content: string }) => {
 
 /** Component for the outside weather dashboard. */
 const OutsideWeatherDashboard = () => {
+  const newWeatherData = useApi();
+
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-2 pb-6 px-6">
       {/** Defines how the grid is structured for this component */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-        <WeatherCardWithIcon content={weatherData.outside.weather_name} />
+        <WeatherCardWithIcon
+          content={newWeatherData?.apiWeather.current.weather_name}
+        />
 
         <WeatherCard
           title="Temperature"
-          content={`${formatTemp(weatherData.outside.temperature_2m_fahrenheit)} °F
-          (${formatTemp(weatherData.outside.temperature_2m)} °C)`}
+          content={`${formatTemp(newWeatherData?.apiWeather.current.temperature_2m_fahrenheit ?? 0)} °F
+          (${formatTemp(newWeatherData?.apiWeather.current.temperature_2m ?? 0)} °C)`}
         />
 
         <WeatherCard
           title="Feels Like"
-          content={`${formatTemp(weatherData.outside.apparent_temperature_fahrenheit)} °F
-            (${formatTemp(weatherData.outside.apparent_temperature)} °C)`}
+          content={`${formatTemp(newWeatherData?.apiWeather.current.apparent_temperature_fahrenheit ?? 0)} °F
+            (${formatTemp(newWeatherData?.apiWeather.current.apparent_temperature ?? 0)} °C)`}
         />
 
         <WeatherCard
           title="Humidity"
-          content={`${formatTemp(weatherData.outside.relative_humidity_2m)}%`}
+          content={`${formatTemp(newWeatherData?.apiWeather.current.relative_humidity_2m ?? 0)}%`}
         />
 
         <WeatherCard
           title="Daylight"
-          content={weatherData.outside.is_day_yesorno}
+          content={newWeatherData?.apiWeather.current.is_day_yesorno}
         />
 
         <WeatherCard
           title="Cloudy"
-          content={`${weatherData.outside.cloud_cover}%`}
+          content={`${newWeatherData?.apiWeather.current.cloud_cover}%`}
         />
 
         <WeatherCard
           title="Wind Speed"
-          content={`${weatherData.outside.wind_speed_10m} miles per hour`}
+          content={`${newWeatherData?.apiWeather.current.wind_speed_10m} miles per hour`}
         />
 
         {/** Shows where the wind is coming from, not where it's going */}
         <WeatherCard
           title="Wind Direction"
-          content={`${weatherData.outside.wind_direction_10m_compass}
-            (${weatherData.outside.wind_direction_10m}°)`}
+          content={`${newWeatherData?.apiWeather.current.wind_direction_10m_compass}
+            (${newWeatherData?.apiWeather.current.wind_direction_10m}°)`}
         />
 
         {/** Conditional in case there is no precipitation */}
@@ -312,7 +308,7 @@ const OutsideWeatherDashboard = () => {
           title="Precipitation"
           content={
             // If precipitation is zero, say none, else show amount
-            weatherData.outside.precipitation === 0
+            newWeatherData?.apiWeather.current.precipitation === 0
               ? "None"
               : `{weatherData.outside.precipitation} inches`
           }
@@ -321,7 +317,7 @@ const OutsideWeatherDashboard = () => {
         <WeatherCard
           title="Rain"
           content={
-            weatherData.outside.rain === 0
+            newWeatherData?.apiWeather.current.rain === 0
               ? "None"
               : `{weatherData.outside.rain} inches`
           }
@@ -330,7 +326,7 @@ const OutsideWeatherDashboard = () => {
         <WeatherCard
           title="Showers"
           content={
-            weatherData.outside.showers === 0
+            newWeatherData?.apiWeather.current.showers === 0
               ? "None"
               : `{weatherData.outside.showers} inches`
           }
@@ -339,7 +335,7 @@ const OutsideWeatherDashboard = () => {
         <WeatherCard
           title="Snowfall"
           content={
-            weatherData.outside.snowfall === 0
+            newWeatherData?.apiWeather.current.snowfall === 0
               ? "None"
               : `{weatherData.outside.snowfall} inches`
           }
@@ -386,6 +382,7 @@ const BottomBar = () => {
 /** Welcome message that change based on if user is logged in */
 const WelcomeMessage = () => {
   const { user } = useUser();
+
   return (
     <div className="bg-gradient-to-r from-slate-900 to-[#60298E] pt-8 px-6">
       {/** Welcome new user and inform them of login */}
@@ -578,7 +575,6 @@ function MyApp() {
         {/** Main starts here */}
         <main>
           <Banner />
-
           <Routes>
             {/** Updates the page by changing components */}
             <Route path="/" element={<Weather />} />

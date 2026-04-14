@@ -49,7 +49,7 @@ export function ApiProvider({ children }: { children: React.ReactNode }) {
   const [data, setData] = useState<ApiResponse | null>(null);
 
   useEffect(() => {
-    fetch("api/weather")
+    fetch("/api/weather")
       .then((res) => res.json())
       .then(setData);
   }, []);
